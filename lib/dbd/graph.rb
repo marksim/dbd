@@ -32,11 +32,19 @@ module Dbd
     #
     # @return [String] comma separated string with double quoted cells
     def to_CSV
-      CSV.generate(force_quotes: true) do |csv|
+      csv_string = CSV.generate(force_quotes: true) do |csv|
         @internal_collection.each do |fact|
           csv << fact.values
         end
-      end.encode("utf-8")
+      end
+      puts "DDDDDDDDDDDDDDDDDDD"
+      sleep 60 # 3390
+      puts "EEEEEEEEEEEEEEEEEE"
+      encoded_string = csv_string.encode("utf-8")
+      puts "FFFFFFFFFFFFFFFFFF"
+      sleep 60 # 3900
+      puts "GGGGGGGGGGGGGGGGGG"
+      return encoded_string
     end
 
     ##

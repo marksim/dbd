@@ -17,6 +17,8 @@ unless filename.size > 0
   exit(1)
 end
 
+puts "start at #{Time.now}"
+
 require 'dbd'
 provenance_resource = Dbd::ProvenanceResource.new
 provenance_resource << Dbd::ProvenanceFact.new(predicate: "prov:test" , object: "A" * 10)
@@ -29,6 +31,24 @@ end
 graph = Dbd::Graph.new
 graph << provenance_resource << resource
 
+puts "graph is made at #{Time.now}"
+
+csv_string = graph.to_CSV
+
+puts "csv_string is made at #{Time.now}"
+
+puts filename
+
+filename = filename.dup
+
+puts "WAITING 60 seconds ..."
+sleep 60
+puts "DONE WAITING ..."
+
+puts filename
+
 File.open(filename, 'w') do |f|
-  f << graph.to_CSV
+  f << csv_string
 end
+
+puts "file is written at #{Time.now}"
